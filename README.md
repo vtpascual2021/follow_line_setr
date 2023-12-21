@@ -180,15 +180,19 @@ Detección de Obstáculos: Se utiliza el sensor de ultrasonidos para identificar
 Comunicación Serie: Se envían y reciben datos a través de la comunicación serie con la ESP32 para coordinar acciones y compartir información.
 
 ### Seguimiento de Líneas
-El robot utiliza sensores infrarrojos para detectar y seguir una línea. Esta funcionalidad se basa en la lectura de los valores de los sensores colocados estratégicamente en el robot. Dependiendo de cuál sensor detecta la línea, el programa ajusta el movimiento de los motores para mantener al robot alineado con la línea. Para el movimiento cuando solo uno de los dos sensores externos detecta la linea (hay que corrgeir el ángulo) hemos utilizado un PD, donde nuestro error es la diferencia entre el valor analógico de los sensores infrarojos
+El robot utiliza sensores infrarrojos para detectar y seguir una línea. Esta funcionalidad se basa en la lectura de los valores de los sensores. Dependiendo de qué sensor detecta la línea, el programa ajusta el movimiento de los motores para mantener al robot alineado con la línea. Para el movimiento cuando solo uno de los dos sensores externos detecta la linea (hay que corrgeir el ángulo) hemos utilizado un PD, donde nuestro error es la diferencia entre el valor analógico de los sensores infrarojos exteriores.
 
 ### Caracteres Enviados
 Durante la ejecución, el Arduino envía caracteres específicos a la ESP32 para indicar diferentes estados o eventos:
 
+En setup() se espera a recibir el carácter 'c' de la esp32, que significa que la esp se ha conectado correctamente al mqtt, y el coche ya puede avanzar.
+
+Durante el bucle:
 's' (start): Indica que el robot ha comenzado a seguir la línea.
-'l' (lost): Se envía si el robot pierde la línea, indicando la necesidad de buscarla nuevamente.
+'l' (lost): Se envía si el robot pierde la línea.
 'f' (found): Se transmite cuando el robot vuelve a encontrar la línea después de haberla perdido.
 '0' a '9': Estos caracteres representan la distancia detectada a un obstáculo, siendo enviados cuando se encuentra uno.
+
 
 
 Ejemplo de Implementación en loop()
