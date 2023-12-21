@@ -174,9 +174,9 @@ Bucle Principal y Seguimiento de Líneas
 
 El bucle principal del programa Arduino es donde se gestiona el seguimiento de línea y la comunicación con la ESP32. Dentro de loop(), el programa realiza constantemente las siguientes acciones:
 
-Lectura de Sensores: Se leen los sensores infrarrojos para detectar la línea y ajustar el movimiento del robot consecuentemente.
-Control de Motores: En función de la información de los sensores, se ajusta la velocidad y dirección de los motores para seguir la línea.
-Detección de Obstáculos: Se utiliza el sensor de ultrasonidos para identificar obstáculos en el camino y detenerse.
+Lectura de Sensores: Se leen los sensores infrarrojos para detectar la línea y ajustar el movimiento del robot consecuentemente.  
+Control de Motores: En función de la información de los sensores, se ajusta la velocidad y dirección de los motores para seguir la línea.  
+Detección de Obstáculos: Se utiliza el sensor de ultrasonidos para identificar obstáculos en el camino y detenerse.  
 Comunicación Serie: Se envían y reciben datos a través de la comunicación serie con la ESP32 para coordinar acciones y compartir información.
 
 ### Seguimiento de Líneas
@@ -189,5 +189,28 @@ Durante la ejecución, el Arduino envía caracteres específicos a la ESP32 para
 'l' (lost): Se envía si el robot pierde la línea, indicando la necesidad de buscarla nuevamente.
 'f' (found): Se transmite cuando el robot vuelve a encontrar la línea después de haberla perdido.
 '0' a '9': Estos caracteres representan la distancia detectada a un obstáculo, siendo enviados cuando se encuentra uno.
+
+
 Ejemplo de Implementación en loop()
 Aquí se muestra un fragmento simplificado del código dentro del loop() que ilustra el seguimiento de líneas y la comunicación con la ESP32:
+
+```c++
+void loop() {
+  // Lectura de sensores infrarrojos
+  bool leftSensor = digitalRead(PIN_ITR20001_LEFT);
+  bool middleSensor = digitalRead(PIN_ITR20001_MIDDLE);
+  bool rightSensor = digitalRead(PIN_ITR20001_RIGHT);
+
+  // Lógica de seguimiento de líneas
+  if (ningunSensor) {
+    // Recuperar linea girando rápidamente en el último sentido de giro
+  } else if (onlyMiddleSensor) {
+    // Mantener dirección
+  } else {
+    // Girar en base al error
+  }
+
+}
+
+```
+
