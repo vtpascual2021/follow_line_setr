@@ -213,4 +213,5 @@ void loop() {
 }
 
 ```
-
+Utilizamos un booleano para saber cuando se ha reencontrado la línea.
+También hemos creado la función send_char(char x) para enviar carácteres solo cuando son diferentes al anterior carácter enviado, para evitar sobrecrgar el buffer.
