@@ -169,3 +169,25 @@ ping_time = (check_time - current_time);
 ```
 
 ## ARDUINO UNO
+
+### ARDUINO UNO - Bucle Principal y Seguimiento de Líneas
+Bucle Principal (loop())
+El bucle principal del programa Arduino es donde se gestiona el seguimiento de línea y la comunicación con la ESP32. Dentro de loop(), el programa realiza constantemente las siguientes acciones:
+
+Lectura de Sensores: Se leen los sensores infrarrojos para detectar la línea y ajustar el movimiento del robot consecuentemente.
+Control de Motores: En función de la información de los sensores, se ajusta la velocidad y dirección de los motores para seguir la línea.
+Detección de Obstáculos: Se utiliza el sensor de ultrasonidos para identificar obstáculos en el camino y detenerse.
+Comunicación Serie: Se envían y reciben datos a través de la comunicación serie con la ESP32 para coordinar acciones y compartir información.
+
+### Seguimiento de Líneas
+El robot utiliza sensores infrarrojos para detectar y seguir una línea. Esta funcionalidad se basa en la lectura de los valores de los sensores colocados estratégicamente en el robot. Dependiendo de cuál sensor detecta la línea, el programa ajusta el movimiento de los motores para mantener al robot alineado con la línea. Para el movimiento cuando solo uno de los dos sensores externos detecta la linea (hay que corrgeir el ángulo) hemos utilizado un PD, donde nuestro error es la diferencia entre el valor analógico de los sensores infrarojos
+
+### Caracteres Enviados
+Durante la ejecución, el Arduino envía caracteres específicos a la ESP32 para indicar diferentes estados o eventos:
+
+'s' (start): Indica que el robot ha comenzado a seguir la línea.
+'l' (lost): Se envía si el robot pierde la línea, indicando la necesidad de buscarla nuevamente.
+'f' (found): Se transmite cuando el robot vuelve a encontrar la línea después de haberla perdido.
+'0' a '9': Estos caracteres representan la distancia detectada a un obstáculo, siendo enviados cuando se encuentra uno.
+Ejemplo de Implementación en loop()
+Aquí se muestra un fragmento simplificado del código dentro del loop() que ilustra el seguimiento de líneas y la comunicación con la ESP32:
