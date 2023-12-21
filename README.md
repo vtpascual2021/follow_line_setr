@@ -176,7 +176,7 @@ El bucle principal del programa Arduino es donde se gestiona el seguimiento de l
 
 Lectura de Sensores: Se leen los sensores infrarrojos para detectar la línea y ajustar el movimiento del robot consecuentemente.  
 Control de Motores: En función de la información de los sensores, se ajusta la velocidad y dirección de los motores para seguir la línea.  
-Detección de Obstáculos: Se utiliza el sensor de ultrasonidos para identificar obstáculos en el camino y detenerse.  
+Detección de Obstáculos: Se utiliza el sensor de ultrasonidos para identificar obstáculos en el camino y detenerse, utlizando un hilo que comprueba cada 100 ms la distancia.  
 Comunicación Serie: Se envían y reciben datos a través de la comunicación serie con la ESP32 para coordinar acciones y compartir información.
 
 ### Seguimiento de Líneas
