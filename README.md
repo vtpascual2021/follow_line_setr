@@ -188,14 +188,14 @@ Durante la ejecución, el Arduino envía caracteres específicos a la ESP32 para
 En setup() se espera a recibir el carácter 'c' de la esp32, que significa que la esp se ha conectado correctamente al mqtt, y el coche ya puede avanzar.
 
 Durante el bucle:  
-'s' (start): Indica que el robot ha comenzado a seguir la línea.
-'l' (lost): Se envía si el robot pierde la línea.
-'f' (found): Se transmite cuando el robot vuelve a encontrar la línea después de haberla perdido.
+'s' (start): Indica que el robot ha comenzado a seguir la línea.  
+'l' (lost): Se envía si el robot pierde la línea.  
+'f' (found): Se transmite cuando el robot vuelve a encontrar la línea después de haberla perdido.  
 '0' a '9': Estos caracteres representan la distancia detectada a un obstáculo, siendo enviados cuando se encuentra uno.
 
 
 
-Ejemplo de Implementación en loop()
+Ejemplo de Implementación en loop()  
 Aquí se muestra un fragmento simplificado del código dentro del loop() que ilustra el seguimiento de líneas y la comunicación con la ESP32:
 
 ```c++
@@ -217,5 +217,5 @@ void loop() {
 }
 
 ```
-Utilizamos un booleano para saber cuando se ha reencontrado la línea.
+Utilizamos un booleano para saber cuando se ha reencontrado la línea.  
 También hemos creado la función send_char(char x) para enviar carácteres solo cuando son diferentes al anterior carácter enviado, para evitar sobrecrgar el buffer.
