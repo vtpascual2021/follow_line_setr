@@ -170,8 +170,8 @@ ping_time = (check_time - current_time);
 
 ## ARDUINO UNO
 
-### ARDUINO UNO - Bucle Principal y Seguimiento de Líneas
-Bucle Principal (loop())
+Bucle Principal y Seguimiento de Líneas
+
 El bucle principal del programa Arduino es donde se gestiona el seguimiento de línea y la comunicación con la ESP32. Dentro de loop(), el programa realiza constantemente las siguientes acciones:
 
 Lectura de Sensores: Se leen los sensores infrarrojos para detectar la línea y ajustar el movimiento del robot consecuentemente.
