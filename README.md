@@ -247,10 +247,12 @@ Esquema de Implementación
 Aquí se muestra un fragmento simplificado del código que ilustra el seguimiento de líneas y la comunicación con la ESP32:
 
 ```c++
-void setup()
+void setup(){
   // Inicializar sensores
   // Espera activa hasta recibir 'c' (connected) de la esp32
   // Enviar 's' (start lap) a la esp32
+}
+
 void loop() {
   if(distancia < 8){
     // Parar motores
