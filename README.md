@@ -188,17 +188,21 @@ Durante la ejecución, el Arduino envía caracteres específicos a la ESP32 para
 En setup() se espera a recibir el carácter 'c' de la esp32, que significa que la esp se ha conectado correctamente al mqtt, y el coche ya puede avanzar.
 
 Durante el bucle:  
-'s' (start): Indica que el robot ha comenzado a seguir la línea.  
+'s' (start): Indica que el robot ha comenzado la vuelta.  
 'l' (lost): Se envía si el robot pierde la línea.  
 'f' (found): Se transmite cuando el robot vuelve a encontrar la línea después de haberla perdido.  
 '0' a '9': Estos caracteres representan la distancia detectada a un obstáculo, siendo enviados cuando se encuentra uno.
 
 
 
-Ejemplo de Implementación en loop()  
+Esquema de Implementación  
 Aquí se muestra un fragmento simplificado del código dentro del loop() que ilustra el seguimiento de líneas y la comunicación con la ESP32:
 
 ```c++
+void setup()
+  // Inicializar sensores
+  // Espera activa hasta recbir 'c' (connected) de la esp32
+  // Enviar 's' (start lap) a la esp32
 void loop() {
   // Lectura de sensores infrarrojos
   bool leftSensor = analogRead(PIN_ITR20001_LEFT);
@@ -208,10 +212,12 @@ void loop() {
   // Lógica de seguimiento de líneas
   if (ningunSensor) {
     // Recuperar linea girando rápidamente en el último sentido de giro
+    // Enviat 'l' lost
   } else if (onlyMiddleSensor) {
     // Mantener dirección
   } else {
-    // Girar en base al error
+    // Girar en base al error con PD
+    // Si la linea fue perdida enviar 'f' (found)
   }
 
 }
