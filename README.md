@@ -201,9 +201,9 @@ Aquí se muestra un fragmento simplificado del código dentro del loop() que ilu
 ```c++
 void loop() {
   // Lectura de sensores infrarrojos
-  bool leftSensor = digitalRead(PIN_ITR20001_LEFT);
-  bool middleSensor = digitalRead(PIN_ITR20001_MIDDLE);
-  bool rightSensor = digitalRead(PIN_ITR20001_RIGHT);
+  bool leftSensor = analogRead(PIN_ITR20001_LEFT);
+  bool middleSensor = analogRead(PIN_ITR20001_MIDDLE);
+  bool rightSensor = analogRead(PIN_ITR20001_RIGHT);
 
   // Lógica de seguimiento de líneas
   if (ningunSensor) {
