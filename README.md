@@ -196,14 +196,19 @@ Durante el bucle:
 
 
 Esquema de Implementación  
-Aquí se muestra un fragmento simplificado del código dentro del loop() que ilustra el seguimiento de líneas y la comunicación con la ESP32:
+Aquí se muestra un fragmento simplificado del código que ilustra el seguimiento de líneas y la comunicación con la ESP32:
 
 ```c++
 void setup()
   // Inicializar sensores
-  // Espera activa hasta recbir 'c' (connected) de la esp32
+  // Espera activa hasta recibir 'c' (connected) de la esp32
   // Enviar 's' (start lap) a la esp32
 void loop() {
+  if(distancia < 8){
+    // Parar motores
+    // Enviar '0-9' (distancia del obstaculo)
+    // while true
+  }
   // Lectura de sensores infrarrojos
   bool leftSensor = analogRead(PIN_ITR20001_LEFT);
   bool middleSensor = analogRead(PIN_ITR20001_MIDDLE);
@@ -212,7 +217,7 @@ void loop() {
   // Lógica de seguimiento de líneas
   if (ningunSensor) {
     // Recuperar linea girando rápidamente en el último sentido de giro
-    // Enviat 'l' lost
+    // Enviar 'l' lost
   } else if (onlyMiddleSensor) {
     // Mantener dirección
   } else {
