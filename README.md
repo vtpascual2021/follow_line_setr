@@ -211,9 +211,26 @@ void loop() {
 
 ### Seguimiento de Líneas
 El robot utiliza sensores infrarrojos para detectar y seguir una línea. Esta funcionalidad se basa en la lectura de los valores de los sensores. Dependiendo de qué sensor detecta la línea, el programa ajusta el movimiento de los motores para mantener al robot alineado con la línea. Para el movimiento cuando solo uno de los dos sensores externos detecta la linea (hay que corrgeir el ángulo) hemos utilizado un PD, donde nuestro error es la diferencia entre el valor analógico de los sensores infrarojos exteriores.
+```c++
+// Esta región solo se ejecuta cuando uno de los dos sensores extremos detecta la línea
+int error = rightSensor - leftSensor;
+int derivative = error - prevError; // 'D' controller
+int motorSpeed = KP * error;  // 'P' controller
+
+// modify turn depending on deviation
+if (error < 0) {
+  leftMotorSpeed = - motorSpeed - KD * derivative;
+  rightMotorSpeed = 50; // Constant speed for the inside wheel
+  last_turn = false;
+} else {
+  leftMotorSpeed = 50;
+  rightMotorSpeed = motorSpeed + KD * derivative;
+  last_turn = true;
+}
+
 
 ### Caracteres Enviados
-Durante la ejecución, el Arduino envía caracteres específicos a la ESP32 para indicar diferentes estados o eventos:
+Durante la ejecución, el Arduino recibe y envía caracteres específicos a la ESP32 para indicar diferentes estados o eventos:
 
 En setup() se espera a recibir el carácter 'c' de la esp32, que significa que la esp se ha conectado correctamente al mqtt, y el coche ya puede avanzar.
 
