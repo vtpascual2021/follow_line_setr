@@ -174,9 +174,38 @@ Bucle Principal y Seguimiento de Líneas
 
 El bucle principal del programa Arduino es donde se gestiona el seguimiento de línea y la comunicación con la ESP32. Dentro de loop(), el programa realiza constantemente las siguientes acciones:
 
-Lectura de Sensores: Se leen los sensores infrarrojos para detectar la línea y ajustar el movimiento del robot consecuentemente.  
-Control de Motores: En función de la información de los sensores, se ajusta la velocidad y dirección de los motores para seguir la línea.  
-Detección de Obstáculos: Se utiliza el sensor de ultrasonidos para identificar obstáculos en el camino y detenerse, utlizando un hilo que comprueba cada 100 ms la distancia.  
+- Lectura de Sensores: Se leen los sensores infrarrojos para detectar la línea y ajustar el movimiento del robot consecuentemente.
+
+-Control de Motores: En función de la información de los sensores, se ajusta la velocidad y dirección de los motores para seguir la línea.
+
+-Detección de Obstáculos: Se utiliza el sensor de ultrasonidos para identificar obstáculos en el camino y detenerse, utlizando un hilo que comprueba cada 100 ms la distancia.  
+```c++
+ThreadController controller = ThreadController();
+Thread distance_thread = Thread();
+
+void check_distance() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  distance = pulseIn(ECHO_PIN, HIGH) / 59.0;
+}
+
+void setup(){
+  // resto de código
+  distance_thread.onRun(check_distance);
+  distance_thread.setInterval(100);
+
+  controller.add(&distance_thread);
+}
+
+void loop() {
+  controller.run();
+  // resto del código
+}
+```
 Comunicación Serie: Se envían y reciben datos a través de la comunicación serie con la ESP32 para coordinar acciones y compartir información.
 
 ### Seguimiento de Líneas
@@ -228,5 +257,15 @@ void loop() {
 }
 
 ```
-Utilizamos un booleano para saber cuando se ha reencontrado la línea.  
-También hemos creado la función send_char(char x) para enviar carácteres solo cuando son diferentes al anterior carácter enviado, para evitar sobrecargar el buffer.
+- Utilizamos un booleano para saber cuando se ha reencontrado la línea.  
+- También hemos creado la función send_char(char x) para enviar carácteres solo cuando son diferentes al anterior carácter enviado, para evitar sobrecargar el buffer.
+```c++
+char previous_char = '\0';
+
+void send_char(char x){
+  if (x != previous_char){
+    Serial.println(x);
+    previous_char = x;
+  }
+}
+```
