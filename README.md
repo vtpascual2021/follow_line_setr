@@ -112,7 +112,7 @@ channel.publish(line_found);
 channel.publish(end_search);
 ```
 
-- **'0' a '9'**  (found) :
+- **'0' a '9'**  (obstacle found) :
 
 El caracter que se recibe representa la distancia a la que se ha detectado el obstáculo. Esta distancia se concatena al mensaje enviado:
 ```c++
