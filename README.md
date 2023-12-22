@@ -228,6 +228,7 @@ if (error < 0) {
   last_turn = true;
 }
 
+```
 
 ### Caracteres Enviados
 Durante la ejecución, el Arduino recibe y envía caracteres específicos a la ESP32 para indicar diferentes estados o eventos:
